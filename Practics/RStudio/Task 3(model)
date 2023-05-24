@@ -1,0 +1,135 @@
+> model34 = lm(salary ~ age + sex + higher_educ2 + I(kj6.2*age), data = data4)
+> summary(model34)
+
+Call:
+lm(formula = salary ~ age + sex + higher_educ2 + I(kj6.2 * age), 
+    data = data4)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-0.5953 -0.2904 -0.2287 -0.1396  3.5648 
+
+Coefficients:
+                 Estimate Std. Error t value Pr(>|t|)   
+(Intercept)    -1.479e-01  5.114e-02  -2.892  0.00394 **
+age            -5.938e-02  4.110e-02  -1.445  0.14898   
+sex             1.514e-01  6.632e-02   2.282  0.02276 * 
+higher_educ2    5.364e-02  8.428e-02   0.636  0.52471   
+I(kj6.2 * age)  2.432e-09  1.802e-09   1.350  0.17749   
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.8872 on 727 degrees of freedom
+Multiple R-squared:  0.01093,	Adjusted R-squared:  0.005489 
+F-statistic: 2.009 on 4 and 727 DF,  p-value: 0.09152
+
+> vif(model34)
+           age            sex   higher_educ2 I(kj6.2 * age) 
+      1.052667       1.022549       1.027306       1.055967 
+> model35 = lm(salary ~ log(age) + sex + higher_educ2 + kj6.2, data = data4)
+Warning message:
+In log(age) : NaNs produced
+> summary(model35)
+
+Call:
+lm(formula = salary ~ log(age) + sex + higher_educ2 + kj6.2, 
+    data = data4)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-0.8836 -0.2441 -0.2119 -0.1313  3.4832 
+
+Coefficients:
+               Estimate Std. Error t value Pr(>|t|)   
+(Intercept)  -1.889e-01  7.381e-02  -2.559  0.01082 * 
+log(age)     -3.164e-02  5.215e-02  -0.607  0.54429   
+sex           9.692e-02  8.576e-02   1.130  0.25905   
+higher_educ2  1.091e-01  1.140e-01   0.958  0.33875   
+kj6.2         5.467e-09  1.713e-09   3.191  0.00152 **
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.8866 on 432 degrees of freedom
+  (295 пропущенных наблюдений удалены)
+Multiple R-squared:  0.02782,	Adjusted R-squared:  0.01882 
+F-statistic:  3.09 on 4 and 432 DF,  p-value: 0.01581
+
+> vif(model35)
+    log(age)          sex higher_educ2        kj6.2 
+    1.002510     1.021086     1.026385     1.011386 
+> model36 = lm(salary ~ age + sex + I(kj6.2*age), data = data5)
+> summary(model36)
+
+Call:
+lm(formula = salary ~ age + sex + I(kj6.2 * age), data = data5)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-0.5175 -0.3292 -0.2729 -0.1987  3.4534 
+
+Coefficients:
+                 Estimate Std. Error t value Pr(>|t|)
+(Intercept)    -5.168e-02  5.864e-02  -0.881    0.379
+age            -5.814e-02  4.912e-02  -1.184    0.237
+sex             1.699e-01  1.251e-01   1.358    0.175
+I(kj6.2 * age)  1.688e-09  3.676e-09   0.459    0.646
+
+Residual standard error: 0.9899 on 370 degrees of freedom
+Multiple R-squared:  0.01124,	Adjusted R-squared:  0.003222 
+F-statistic: 1.402 on 3 and 370 DF,  p-value: 0.2419
+
+> vif(model36)
+           age            sex I(kj6.2 * age) 
+      1.072397       1.074589       1.029339 
+> model37 = lm(salary ~ age + sex + log(kj6.2), data = data5)
+> summary(model37)
+
+Call:
+lm(formula = salary ~ age + sex + log(kj6.2), data = data5)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-0.5184 -0.3317 -0.2729 -0.2037  3.4465 
+
+Coefficients:
+            Estimate Std. Error t value Pr(>|t|)
+(Intercept)  0.01210    0.11359   0.106    0.915
+age         -0.05651    0.04887  -1.156    0.248
+sex          0.16962    0.12466   1.361    0.174
+log(kj6.2)  -0.01629    0.02536  -0.643    0.521
+
+Residual standard error: 0.9897 on 370 degrees of freedom
+Multiple R-squared:  0.01178,	Adjusted R-squared:  0.003765 
+F-statistic:  1.47 on 3 and 370 DF,  p-value: 0.2223
+
+> vif(model37)
+       age        sex log(kj6.2) 
+  1.062087   1.067786   1.007326 
+> model38 = lm(salary ~ log(age) + sex + kj6.2, data = data5)
+Warning message:
+In log(age) : NaNs produced
+> summary(model38)
+
+Call:
+lm(formula = salary ~ log(age) + sex + kj6.2, data = data5)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-0.3890 -0.2181 -0.2133 -0.2066  3.3962 
+
+Coefficients:
+              Estimate Std. Error t value Pr(>|t|)
+(Intercept) -9.012e-02  7.908e-02  -1.140    0.256
+log(age)     9.009e-03  7.524e-02   0.120    0.905
+sex          1.668e-01  2.164e-01   0.771    0.442
+kj6.2       -2.062e-09  5.173e-09  -0.399    0.691
+
+Residual standard error: 0.8834 on 154 degrees of freedom
+  (216 пропущенных наблюдений удалены)
+Multiple R-squared:  0.00524,	Adjusted R-squared:  -0.01414 
+F-statistic: 0.2704 on 3 and 154 DF,  p-value: 0.8467
+
+> vif(model38)
+log(age)      sex    kj6.2 
+1.006514 1.002653 1.009168 
+> 
