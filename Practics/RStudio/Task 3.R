@@ -8,7 +8,7 @@ library(car)
 library(sandwich)
 library("devtools")
 
-data = read.csv("r15i_os26c.csv")
+data = read.csv("C:\\Users\\ivcbibl13\\Documents\\R\\r15i_os26c.csv")
 glimpse(data)
 data2 = select(data, kj13.2, kh5, k_marst, k_diplom,  k_age, status, kj6.2)
 data2 = na.omit(data2)
@@ -268,7 +268,8 @@ vif(model31)
 
 #Женатые, не из города
 data4 = subset(data2, citystatus2==0 & wed1==1)
-data4 = na.omit
+data4
+
 
 #Разведённые или не вступавшие в брак, с высшим образованием
 data5 = subset(data2, (wed2==1 & higher_educ2==1) | (wed3==1 & higher_educ2==1))
@@ -278,37 +279,43 @@ data5
 model32 = lm(salary ~ age + sex + higher_educ2 + kj6.2, data = data4)
 summary(model32)
 vif(model32)
-#R^2 имеет маленькое значение => модель плоха
+#R^2 имеет значение выше, чем у модели 33, но все равно маленькое, также есть два значимых параметра с максимальным уровнем значимости
+#Модель лучше, но по прежнему не является хорошей
 
 #Линейная регрессия для data5
 #Регрессоры higher_educ2 является мультиколлинеарным, линейную регрессию построить нельзя, уберём его из модели
 model33 = lm(salary ~ age + sex + kj6.2, data = data5)
 summary(model33)
 vif(model33)
-#R^2 имеет значение выше, чем у прошлой модели, но все равно маленькое, также есть один значимый параметр с максимальным уровнем значимости
-#Модель лучше, но по прежнему не является хорошей
+#R^2 имеет маленькое значение => модель плоха
 
 #Введем операторы умножения и логарифма в две предыдущие полученные модели
 
 model34 = lm(salary ~ age + sex + higher_educ2 + I(kj6.2*age), data = data4)
 summary(model34)
 vif(model34)
+#R^2 = 0.005489
 
 model35 = lm(salary ~ log(age) + sex + higher_educ2 + kj6.2, data = data4)
 summary(model35)
 vif(model35)
+#R^2 = 0.01882
 
 model36 = lm(salary ~ age + sex + I(kj6.2*age), data = data5)
 summary(model36)
 vif(model36)
+#R^2 = 0.003222
 
 model37 = lm(salary ~ age + sex + log(kj6.2), data = data5)
 summary(model37)
 vif(model37)
+#R^2 = 0.003765
 
 model38 = lm(salary ~ log(age) + sex + kj6.2, data = data5)
 summary(model38)
 vif(model38)
+#R^2 = -0.01414
 
 
-#Наилучшей можно считать модель 37, т.к. у неё самый высокий R^2, отсутствует сильная зависимость регрессоров и в столбце Std. Error присутствуют низкие значение
+# Наилучшей можно считать модель 35, т.к. у неё самый высокий R^2, отсутствует сильная зависимость регрессоров, низкие значения vif, которые указывают на
+# отсутствие мультиколлинеарности и присутствуют низкие p-значения
