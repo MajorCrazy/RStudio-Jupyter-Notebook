@@ -8,7 +8,7 @@ library(car)
 library(sandwich)
 library("devtools")
 
-data = read.csv("C:\\Users\\ivcbibl13\\Documents\\R\\r15i_os26c.csv")
+data = read.csv("r15i_os26c.csv")
 glimpse(data)
 data2 = select(data, kj13.2, kh5, k_marst, k_diplom,  k_age, status, kj6.2)
 data2 = na.omit(data2)
